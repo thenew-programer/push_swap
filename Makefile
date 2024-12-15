@@ -28,7 +28,7 @@ $(LIBFT):
 			@make all bonus -C $(LIBFT_DIR)
 
 clean:
-			$(RM) $(OBJS)
+			$(RM) $(OBJS_DIR)
 			@echo "Cleaning libft"
 			@make clean -C $(LIBFT_DIR)
 
