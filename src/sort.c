@@ -30,6 +30,7 @@ void	ss(t_stack *a, t_stack *b, t_const type)
 		int_swap(&b->arr[b->top], &b->arr[b->top - 1]);
 		int_swap(&a->arr[a->top], &a->arr[a->top - 1]);
 	}
+	op_count++;
 }
 
 void	pp(t_stack *a, t_stack *b, t_const type)
@@ -52,6 +53,7 @@ void	pp(t_stack *a, t_stack *b, t_const type)
 			pop(a);
 		}
 	}
+	op_count++;
 }
 
 void	rr(t_stack	*a, t_stack *b, t_const type)
@@ -72,6 +74,7 @@ void	rr(t_stack	*a, t_stack *b, t_const type)
 		rotate(a);
 		rotate(b);
 	}
+	op_count++;
 }
 
 void	rrr(t_stack *a, t_stack *b, t_const type)
@@ -92,6 +95,7 @@ void	rrr(t_stack *a, t_stack *b, t_const type)
 		rrotate(a);
 		rrotate(b);
 	}
+	op_count++;
 }
 
 t_stack	*sort_stack(t_stack *s)
@@ -100,7 +104,7 @@ t_stack	*sort_stack(t_stack *s)
 	int		tmp;
 
 	tmp_s = init_stack();
-	tmp_s->arr = malloc(sizeof(int) * s->top);
+	tmp_s->arr = malloc(sizeof(int) * (s->top + 1));
 	push(tmp_s, pop(s));
 	while (!is_empty(s))
 	{
@@ -122,52 +126,46 @@ t_stack	*sort_tri(t_stack *a, t_stack *b)
 	ar = a->arr;
 	if (t == 1)
 		return (ss(a, b, STACK_A), a);
-	if ((peek(a) < ar[t - 1] && ar[t - 1] > ar[t - 2] && peek(a) < ar[t - 2])
-		|| (peek(a) > ar[t - 1] && ar[t - 1] < ar[t - 2] && peek(a) < ar[t - 2])
-		|| (peek(a) > ar[t - 1] && ar[t - 1] > ar[t - 2] && peek(a) > ar[t - 2])
-	)
-		ss(a, b, STACK_A);
-	// if (peek(a) < ar[t - 1] && ar[t - 1] > ar[t - 2] && peek(a) < ar[t - 2])
-	// 	ss(a, b, STACK_A);
-	// if (peek(a) > ar[t - 1] && ar[t - 1] > ar[t - 2] && peek(a) > ar[t - 2])
-	// 	ss(a, b, STACK_A);
-	// if (peek(a) > ar[t - 1] && ar[t - 1] < ar[t - 2] && peek(a) < ar[t - 2])
-	// 	ss(a, b, STACK_A);
-	if (peek(a) < ar[t - 1] && ar[t - 1] > ar[t - 2] && peek(a) > ar[t - 2])
-		rrr(a, b, STACK_A);
-	if (peek(a) > ar[t - 1] && ar[t - 1] < ar[t - 2] && peek(a) > ar[t - 2])
+	if (peek(a) > ar[t - 1] && peek(a) > ar[t - 2])
 		rr(a, b, STACK_A);
+	else if (ar[t - 1] > peek(a) && ar[t - 1] > ar[t - 2])
+		rrr(a, b, STACK_A);
+	if (peek(a) > ar[t - 1])
+		ss(a, b, STACK_A);
 	return (a);
 }
 
 t_stack	*sort_five(t_stack *a, t_stack *b)
 {
-	int	ops;
+	int		ops;
+	t_const	direction;
 
-	while (a->top > 2)
+	while (a->top > 2 && !is_sorted(a))
 	{
-		ops = count_op(a, min_pos(a));
-		if (ops < a->top)
-			while (ops--)
+		ops = count_op(a, min_pos(a), &direction);
+		if (direction == FORWARD)
+			while (ops-- > 0)
 				rr(a, b, STACK_A);
-		else if (ops > a->top)
-			while (ops-- > a->top)
+		else if (direction == BACKWARD)
+			while (ops-- > 0)
 				rrr(a, b, STACK_A);
 		pp(a, b, STACK_B);
 	}
-	sort_tri(a, b);
+	if (!is_sorted(a))
+		sort_tri(a, b);
 	while (!is_empty(b))
 		pp(a, b, STACK_A);
 	return (a);
 }
 
+
 t_stack	*sort(t_stack *a, t_stack *b)
 {
 	if (is_sorted(a))
 		return (a);
-	if (a->top <= 3)
+	if (a->top < 3)
 		return (sort_tri(a, b));
-	else if (a->top > 3 && a->top <= 5)
+	else if (a->top >= 3 && a->top < 20)
 		return (sort_five(a, b));
 	// else if (a->top > 5 && a->top <= 100)
 	// 	return (sort_hunid(a, b));

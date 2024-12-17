@@ -28,7 +28,7 @@ t_stack	*rotate(t_stack *s)
 
 	if (is_empty(s) == TRUE)
 		return (s);
-	arr = (int *)malloc(sizeof(int) * s->top);
+	arr = (int *)malloc(sizeof(int) * (s->top + 1));
 	if (!arr)
 		return (free_stack(s), NULL);
 	arr[0] = peek(s);
@@ -50,7 +50,7 @@ t_stack	*rrotate(t_stack *s)
 
 	if (is_empty(s) == TRUE)
 		return (s);
-	arr = (int *)malloc(sizeof(int) * s->top);
+	arr = (int *)malloc(sizeof(int) * (s->top + 1));
 	if (!arr)
 		return (free_stack(s), NULL);
 	i = 0;
@@ -111,18 +111,21 @@ int	min_pos(t_stack *s)
 	return (min);
 }
 
-int	count_op(t_stack *s, int idx)
+int	count_op(t_stack *s, int idx, t_const *direction)
 {
-	int	offset;
-	int	ops;
+	int	rr_ops;
 
-	offset = s->top - idx;
-	ops = 0;
-	if (offset == s->top)
-		ops = s->top + 1;
-	else if (offset < s->top / 2)
-		ops = s->top + offset;
-	else if (offset >= s->top / 2)
-		ops = offset;
-	return (ops);
+	if (idx < 0 || idx > s->top)
+		return (-1);
+	rr_ops = (s->top - idx);
+	if (++idx <= rr_ops)
+	{
+		*direction = BACKWARD;
+		return (idx);
+	}
+	else
+	{
+		*direction = FORWARD;
+		return (rr_ops);
+	}
 }

@@ -16,6 +16,8 @@
 # include <stdlib.h>
 # include "libft.h"
 
+extern int op_count;
+
 typedef struct s_stack
 {
 	int	*arr;
@@ -28,7 +30,11 @@ typedef enum
 	TRUE,
 	STACK_A,
 	STACK_B,
-	STACK_AB
+	STACK_AB,
+	FORWARD,
+	BACKWARD,
+	ASCEND,
+	DESCEND
 } t_const;
 
 
@@ -58,6 +64,6 @@ t_stack	*rrotate(t_stack *s);
 t_const	is_sorted(t_stack *s);
 int		min_pos(t_stack *s);
 int		max_pos(t_stack *s);
-int		count_op(t_stack *s, int idx);
+int		count_op(t_stack *s, int idx, t_const *direction);
 
 #endif /* PUSH_SWAP_H */

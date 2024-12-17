@@ -52,6 +52,8 @@ void	print_stack(t_stack *s)
 {
 	int	i;
 
+	if (is_empty(s))
+		return ;
 	i = s->top;
 	while (i >= 0)
 	{
@@ -69,36 +71,3 @@ void	free_stack(t_stack *s)
 	if (s)
 		free(s);
 }
-
-/*
-#include <stdio.h>
-int main()
-{
-	t_stack *s;
-
-	s = init_stack();
-	s->arr = malloc(sizeof(int) * 10);
-	push(s, 1);
-	push(s, 2);
-	push(s, 3);
-	push(s, 4);
-	for (int i = s->top; i >= 0; i--)
-		printf("%d\n", s->arr[i]);
-	s = rotate(s);
-	printf("ROTATION\n");
-	for (int i = s->top; i >= 0; i--)
-		printf("%d\n", s->arr[i]);
-	free_stack(s);
-	s = init_stack();
-	s->arr = malloc(sizeof(int) * 10);
-	push(s, 1);
-	push(s, 2);
-	push(s, 3);
-	push(s, 4);
-	for (int i = s->top; i >= 0; i--)
-		printf("%d\n", s->arr[i]);
-	s = rrotate(s);
-	printf("REVERSE ROTATION\n");
-	for (int i = s->top; i >= 0; i--)
-		printf("%d\n", s->arr[i]);
-}*/
