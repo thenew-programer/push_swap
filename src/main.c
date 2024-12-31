@@ -20,7 +20,7 @@ int	main(int ac, char **av)
 	t_stack	*a;
 	t_stack	*b;
 
-	if (ac <= 2)
+	if (ac < 2)
 		return (1);
 	a = parse(ac, av);
 	if (!a)
@@ -30,8 +30,8 @@ int	main(int ac, char **av)
 	if (!b->arr)
 		return (free_stack(a), free_stack(b), 1);
 	op_count = 0;
-	printf("before:\n\t");
-	print_stack(a);
+	// printf("before:\n\t");
+	// print_stack(a);
 	sort(a, b);
 	printf("op_count = %d\n", op_count);
 	printf("after:\n\t");

@@ -45,7 +45,6 @@ t_const	is_empty(t_stack *s)
 	if (s->top == -1)
 		return (TRUE);
 	return (FALSE);
-
 }
 
 void	print_stack(t_stack *s)

@@ -15,6 +15,8 @@
 
 # include <stdlib.h>
 # include "libft.h"
+# include <time.h>
+#include "limits.h"
 
 extern int op_count;
 
@@ -22,6 +24,11 @@ typedef struct s_stack
 {
 	int	*arr;
 	int	top;
+	int	median;
+	int	*price;
+	int	*target;
+	int	cheapest;
+	int	pos_cheapest;
 }	t_stack;
 
 typedef enum
@@ -65,5 +72,9 @@ t_const	is_sorted(t_stack *s);
 int		min_pos(t_stack *s);
 int		max_pos(t_stack *s);
 int		count_op(t_stack *s, int idx, t_const *direction);
+int		find_median(t_stack *a);
+void	set_pref(t_stack *a, t_stack *b);
+int		find_pos(int elm, t_stack *s);
+t_stack	*set_target(t_stack *a, t_stack *b);
 
 #endif /* PUSH_SWAP_H */

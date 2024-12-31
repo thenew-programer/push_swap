@@ -117,7 +117,7 @@ t_stack	*sort_stack(t_stack *s)
 	return (tmp_s);
 }
 
-t_stack	*sort_tri(t_stack *a, t_stack *b)
+t_stack	*permutation_sort(t_stack *a, t_stack *b)
 {
 	int	t;
 	int	*ar;
@@ -135,7 +135,7 @@ t_stack	*sort_tri(t_stack *a, t_stack *b)
 	return (a);
 }
 
-t_stack	*sort_five(t_stack *a, t_stack *b)
+t_stack	*selection_sort(t_stack *a, t_stack *b)
 {
 	int		ops;
 	t_const	direction;
@@ -152,26 +152,105 @@ t_stack	*sort_five(t_stack *a, t_stack *b)
 		pp(a, b, STACK_B);
 	}
 	if (!is_sorted(a))
-		sort_tri(a, b);
+		permutation_sort(a, b);
 	while (!is_empty(b))
 		pp(a, b, STACK_A);
 	return (a);
 }
 
+t_stack	*sort_hunid(t_stack *a, t_stack *b)
+{
+	int		ops1;
+	int		ops2;
+	t_const	direction1;
+	t_const	direction2;
+
+	while (a->top > 2)
+		pp(a, b, STACK_B);
+	permutation_sort(a, b);
+	while (b->top >= 0)
+	{
+		set_pref(a, b);
+		ops1 = count_op(a, find_pos(b->target[b->pos_cheapest], a), &direction1);
+		ops2 = count_op(b, b->pos_cheapest, &direction2);
+		if (direction1 == direction2)
+		{
+			if (direction2 == FORWARD)
+				while (ops1-- > 0 && ops2-- > 0)
+					rr(a, b, STACK_AB);
+			else if (direction1 == BACKWARD)
+				while (ops1-- > 0 && ops2-- > 0)
+					rrr(a, b, STACK_AB);
+		}
+		// if (find_pos(b->cheapest, b) > b->median
+		// 	&& find_pos(b->target[find_pos(b->cheapest, b)], a) > a->median)
+		// {
+		// 	while (peek(a) != b->target[find_pos(b->cheapest, b)] && peek(b) != b->cheapest)
+		// 	{
+		// 		rrr(a, b, STACK_AB);
+		// 		set_target(a, b);
+		// 	}
+		// }
+		// else if (find_pos(b->cheapest, b) < b->median
+		// 	&& find_pos(b->target[find_pos(b->cheapest, b)], a) < a->median)
+		// {
+		// 	while (peek(a) != b->target[find_pos(b->cheapest, b)] && peek(b) != b->cheapest)
+		// 	{
+		// 		rr(a, b, STACK_AB);
+		// 		set_target(a, b);
+		// 	}
+		// }
+		// ops1 = count_op(a, find_pos(b->target[find_pos(b->cheapest, b)], a), &direction1);
+		if (direction1 == FORWARD && ops1 > 0)
+			while (ops1-- > 0)
+				rr(a, b, STACK_A);
+		else if (direction1 == BACKWARD)
+			while (ops1-- > 0)
+				rrr(a, b, STACK_A);
+		// ops2 = count_op(b, find_pos(b->cheapest, b), &direction2);
+		if (direction2 == FORWARD && ops2 > 0)
+			while (ops2-- > 0)
+				rr(a, b, STACK_B);
+		else if (direction2 == BACKWARD)
+			while (ops2-- > 0)
+				rrr(a, b, STACK_B);
+		// while (peek(b) != b->cheapest)
+		// {
+		// 	if (find_pos(b->cheapest, b) > b->median)
+		// 		rrr(a, b, STACK_B);
+		// 	else
+		// 		rr(a, b, STACK_B);
+		// 	set_target(a, b);
+		// }
+		// while (peek(a) != b->target[find_pos(b->cheapest, b)])
+		// {
+		// 	if (find_pos(b->target[find_pos(b->cheapest, b)], a) > a->median)
+		// 		rrr(a, b, STACK_A);
+		// 	else
+		// 		rr(a, b, STACK_A);
+		// 	set_target(a, b);
+		// }
+		pp(a, b, STACK_A);
+	}
+	ops1 = count_op(a, min_pos(a), &direction1);
+	if (direction1 == FORWARD)
+		while (ops1-- > 0)
+			rr(a, b, STACK_A);
+	else if (direction1 == BACKWARD)
+		while (ops1-- > 0)
+			rrr(a, b, STACK_A);
+	return (a);
+}
 
 t_stack	*sort(t_stack *a, t_stack *b)
 {
 	if (is_sorted(a))
 		return (a);
 	if (a->top < 3)
-		return (sort_tri(a, b));
-	else if (a->top >= 3 && a->top < 20)
-		return (sort_five(a, b));
-	// else if (a->top > 5 && a->top <= 100)
-	// 	return (sort_hunid(a, b));
-	// else if (a->top > 100 && a->top <= 500)
-	// 	return (sort_fhunid(a, b));
-	// else
-	// 	return (sort_biger(a, b));
+		return (permutation_sort(a, b));
+	else if (a->top >= 3 && a->top < 15)
+		return (selection_sort(a, b));
+	else if (a->top > 15 && a->top <= 500)
+		return (sort_hunid(a, b));
 	return (a);
 }
