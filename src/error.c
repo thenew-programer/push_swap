@@ -1,18 +1,23 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   log.c                                              :+:      :+:    :+:   */
+/*   error.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ybouryal <ybouryal@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/12/08 14:16:30 by ybouryal          #+#    #+#             */
-/*   Updated: 2024/12/08 14:17:47 by ybouryal         ###   ########.fr       */
+/*   Created: 2024/12/31 22:10:35 by ybouryal          #+#    #+#             */
+/*   Updated: 2024/12/31 22:16:35 by ybouryal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+#include "libft.h"
 #include "push_swap.h"
 
-void	log_fn(char *name)
+void	input_error(t_stack **s, t_const msg)
 {
-	ft_putstr_fd(name, 1);
+	if (msg == TRUE)
+		ft_putstr_fd("Error\n", 2);
+	if (s != NULL)
+		if (*s != NULL)
+			stackfree(s);
 }

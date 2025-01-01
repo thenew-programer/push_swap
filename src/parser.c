@@ -5,31 +5,87 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: ybouryal <ybouryal@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/12/07 17:40:03 by ybouryal          #+#    #+#             */
-/*   Updated: 2024/12/08 13:19:18 by ybouryal         ###   ########.fr       */
+/*   Created: 2024/12/31 19:54:43 by ybouryal          #+#    #+#             */
+/*   Updated: 2024/12/31 22:19:12 by ybouryal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
+#include "libft.h"
 
-t_stack	*parse(int ac, char **av)
+void	free_av(char **av)
 {
-	int		i;
-	int		tmp;
-	t_stack	*s;
+	int	i;
 
-	s = init_stack();
-	if (!s)
-		return (NULL);
-	s->arr = (int *)malloc(sizeof(int) * (ac - 1));
-	i = ac - 1;
-	while (i > 0)
+	i = 0;
+	while (av[i])
 	{
-		tmp = ft_atoi(av[i]);
-		if (tmp == 0 && av[i][0] != '-' && !ft_isdigit(av[i][0]))
-			return (free_stack(s), NULL);
-		push(s, tmp);
+		free(av[i]);
+		i++;
+	}
+	free(av);
+}
+
+t_const	is_nbr_valid(char *str)
+{
+	int	result;
+	int	sign;
+
+	result = 0;
+	sign = 1;
+	while (is_space(*str))
+		str++;
+	if (*str == '-' || *str == '+')
+	{
+		if (*str == '-')
+			sign = -1;
+		str++;
+	}
+	while (*str)
+	{
+		if (!ft_isdigit(*str))
+			return (FALSE);
+		if (sign == 1 && (result > (INT_MAX - (*str - '0')) / 10))
+			return (FALSE);
+		if (sign == -1 && (-result < (INT_MIN + (*str - '0')) / 10))
+			return (FALSE);
+		result = (result * 10) + (*str - '0');
+	}
+	return (TRUE);
+}
+
+char	**parse_av(int *ac, char *str)
+{
+	char	**strs;
+	int		count;
+
+	strs = ft_split(str, ' ');
+	count = 0;
+	while (strs[count] != NULL)
+		count++;
+	*ac = count;
+	return (strs);
+}
+
+t_stack	*parser(int ac, char **av)
+{
+	t_stack	*head;
+	int		nbr;
+	int		i;
+
+	if (av == NULL)
+		return (input_error(NULL, TRUE), NULL);
+	head = NULL;
+	i = ac - 1;
+	while (i >= 0)
+	{
+		nbr = ft_atoi(av[i]);
+		if ((nbr == 0 && av[i][0] != '+' && av[i][0] != '-' && !ft_isdigit(av[i][0]))
+			|| stackfind(head, nbr) != NULL || !is_nbr_valid(av[i]))
+			return (input_error(&head, TRUE), NULL);
+		if (push(&head, nbr) == 0)
+			return (input_error(&head, FALSE), NULL);
 		i--;
 	}
-	return (s);
+	return (head);
 }

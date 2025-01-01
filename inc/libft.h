@@ -6,7 +6,7 @@
 /*   By: ybouryal <ybouryal@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/22 18:38:35 by ybouryal          #+#    #+#             */
-/*   Updated: 2024/10/26 11:24:18 by ybouryal         ###   ########.fr       */
+/*   Updated: 2024/12/31 18:36:25 by ybouryal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -282,7 +282,7 @@ t_list	*ft_lstnew(void *content);
  *
  * return:	None
 */
-void	ft_lstadd_front(t_list **lst, t_list *new);
+void	ft_lstadd_front(t_list **lst, t_list *new_node);
 
 /**
  * Desc:	Counts the number of nodes in a list.
@@ -311,7 +311,7 @@ t_list	*ft_lstlast(t_list *lst);
  *
  * return:	None
 */
-void	ft_lstadd_back(t_list **lst, t_list *new);
+void	ft_lstadd_back(t_list **lst, t_list *new_node);
 
 /**
  * Desc:	Takes as a parameter a node and frees the memory
@@ -357,4 +357,4 @@ void	ft_lstclear(t_list **lst, void (*del)(void *));
  * 			an error occur.
 */
 char	*get_next_line(int fd);
-#endif
+#endif /* LIBFT_H */
