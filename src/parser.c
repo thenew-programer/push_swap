@@ -80,8 +80,8 @@ t_stack	*parser(int ac, char **av)
 	while (i >= 0)
 	{
 		nbr = ft_atoi(av[i]);
-		if ((nbr == 0 && av[i][0] != '+' && av[i][0] != '-' && !ft_isdigit(av[i][0]))
-			|| stackfind(head, nbr) != NULL || !is_nbr_valid(av[i]))
+		// if ((nbr == 0 && av[i][0] != '+' && av[i][0] != '-' && !ft_isdigit(av[i][0]))
+		if (stackfind(head, nbr) != NULL || !is_nbr_valid(av[i]))
 			return (input_error(&head, TRUE), NULL);
 		if (push(&head, nbr) == 0)
 			return (input_error(&head, FALSE), NULL);

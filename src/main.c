@@ -11,7 +11,6 @@
 /* ************************************************************************** */
 
 #include "push_swap.h"
-#include <stdio.h>
 
 int	main(int ac, char **av)
 {
@@ -33,8 +32,6 @@ int	main(int ac, char **av)
 	if (strs)
 		av = strs;
 	a = parser(ac, av);
-	// printf("strs[0] = %s\n", strs[0]);
-	// printf("strs[1] = %s\n", strs[1]);
 	if (strs)
 		free_av(strs);
 	if (a == NULL)
