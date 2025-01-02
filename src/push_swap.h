@@ -60,14 +60,14 @@ typedef struct s_stack
 /* Stack impl and utility functions */
 t_stack	*stacknew(int data);
 void	stackadd_front(t_stack **head, t_stack *new_node);
-int		stacksize(t_stack *head);
-void	stackfree(t_stack **head);
-t_stack	*stacklast(t_stack *head);
-t_stack	*stackfind(t_stack *head, int data);
-t_stack	*stackget(t_stack *head, int idx);
+int		stacksize(t_stack *s);
+void	stackfree(t_stack **s);
+t_stack	*stacklast(t_stack *s);
+t_stack	*stackfind(t_stack *s, int data);
+t_stack	*stackget(t_stack *s, int idx);
 void	stackpos(t_stack *s);
-int		pop(t_stack **head);
-int		push(t_stack **head, int data);
+int		pop(t_stack **s);
+int		push(t_stack **s, int data);
 
 /* Command Utils */
 void	swap_node(t_stack **s);

@@ -54,41 +54,41 @@ void	stackadd_front(t_stack **head, t_stack *new_node)
 	}
 }
 
-int	stacksize(t_stack *head)
+int	stacksize(t_stack *s)
 {
 	int	size;
 
 	size = 0;
-	while (head != NULL)
+	while (s != NULL)
 	{
-		head = head->next;
+		s = s->next;
 		size++;
 	}
 	return (size);
 }
 
-void	stackfree(t_stack **head)
+void	stackfree(t_stack **s)
 {
 	t_stack	*curr;
 	t_stack	*next;
 
-	curr = *head;
+	curr = *s;
 	while (curr)
 	{
 		next = curr->next;
 		free(curr);
 		curr = next;
 	}
-	*head = NULL;
+	*s = NULL;
 }
 
-t_stack	*stacklast(t_stack *head)
+t_stack	*stacklast(t_stack *s)
 {
-	if (head == NULL)
+	if (s == NULL)
 		return (NULL);
-	while (head->next)
+	while (s->next)
 	{
-		head = head->next;
+		s = s->next;
 	}
-	return (head);
+	return (s);
 }

@@ -11,7 +11,6 @@
 /* ************************************************************************** */
 
 #include "push_swap.h"
-#include "libft.h"
 
 void	free_av(char **av)
 {
@@ -50,6 +49,7 @@ t_const	is_nbr_valid(char *str)
 		if (sign == -1 && (-result < (INT_MIN + (*str - '0')) / 10))
 			return (FALSE);
 		result = (result * 10) + (*str - '0');
+		str++;
 	}
 	return (TRUE);
 }
@@ -61,7 +61,7 @@ char	**parse_av(int *ac, char *str)
 
 	strs = ft_split(str, ' ');
 	count = 0;
-	while (strs[count] != NULL)
+	while (strs[count])
 		count++;
 	*ac = count;
 	return (strs);
