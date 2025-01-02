@@ -6,7 +6,7 @@
 /*   By: ybouryal <ybouryal@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/02 00:09:28 by ybouryal          #+#    #+#             */
-/*   Updated: 2025/01/02 00:09:37 by ybouryal         ###   ########.fr       */
+/*   Updated: 2025/01/02 14:55:14 by ybouryal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #ifndef PUSH_SWAP_H
@@ -80,7 +80,7 @@ t_stack	*set_cheapest(t_stack *b);
 t_const	is_space(char c);
 
 /* Parser functions */
-t_stack	*parser(int ac, char **av);
+t_stack	*parser(int ac, char **av, char **strs);
 char	**parse_av(int *ac, char *str);
 void	free_av(char **av);
 
