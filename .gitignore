@@ -1,0 +1,4 @@
+*.o
+*.a
+push_swap
+my_checker

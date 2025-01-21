@@ -1,22 +1,24 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   push_swap.h                                        :+:      :+:    :+:   */
+/*   checker.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ybouryal <ybouryal@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/02 00:09:28 by ybouryal          #+#    #+#             */
-/*   Updated: 2025/01/02 14:55:14 by ybouryal         ###   ########.fr       */
+/*   Updated: 2025/01/21 22:17:06 by ybouryal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
+
 #ifndef PUSH_SWAP_H
 # define PUSH_SWAP_H
+
+# include "libft.h"
 
 # include <stdlib.h>
 # include <unistd.h>
 # include <limits.h>
 # include <stdio.h>
-# include "libft.h"
 
 /*
  * t_const:		enum to handle states for commands
@@ -56,6 +58,12 @@ typedef struct s_stack
 	struct s_stack	*target;
 }	t_stack;
 
+typedef struct s_ops
+{
+	char	*op;
+	void	(*f)(t_stack **, t_stack **, t_const);
+}	t_ops;
+
 /* Stack impl and utility functions */
 t_stack	*stacknew(int data);
 void	stackadd_front(t_stack **head, t_stack *new_node);
@@ -83,6 +91,7 @@ t_const	is_space(char c);
 t_stack	*parser(int ac, char **av, char **strs);
 char	**parse_av(int *ac, char *str);
 void	free_av(char **av);
+char	**parse_ops(char *s);
 
 /* Commands */
 void	ss(t_stack **a, t_stack **b, t_const flag);
@@ -99,5 +108,8 @@ void	push_swap(t_stack **a, t_stack **b);
 
 /* Error handling function */
 void	input_error(t_stack **s, t_const msg);
+
+char	*get_next_line(int fd);
+t_const	sort(char **ops, t_stack **a, t_stack **b);
 
 #endif /* PUSH_SWAP_H */

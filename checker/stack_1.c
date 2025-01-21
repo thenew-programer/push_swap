@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "push_swap.h"
+#include "checker.h"
 #include <stdio.h>
 
 t_stack	*stacknew(int data)
@@ -72,6 +72,8 @@ void	stackfree(t_stack **head)
 	t_stack	*curr;
 	t_stack	*next;
 
+	if (!head)
+		return ;
 	curr = *head;
 	while (curr)
 	{

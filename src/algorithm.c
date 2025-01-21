@@ -92,6 +92,7 @@ void	heavy_sort(t_stack **a, t_stack **b)
 		cheapest = set_cheapest(*b);
 		move_cheapest_to_a(a, b, cheapest);
 	}
+	stackpos(*a);
 	min = min_node(*a);
 	while (min->pos != 0)
 	{

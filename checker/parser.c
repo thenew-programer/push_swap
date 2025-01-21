@@ -6,11 +6,12 @@
 /*   By: ybouryal <ybouryal@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/02 14:52:00 by ybouryal          #+#    #+#             */
-/*   Updated: 2025/01/02 14:56:18 by ybouryal         ###   ########.fr       */
+/*   Updated: 2025/01/21 21:23:55 by ybouryal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "push_swap.h"
+#include "libft.h"
+#include "checker.h"
 
 void	free_av(char **av)
 {
@@ -95,4 +96,27 @@ t_stack	*parser(int ac, char **av, char **strs)
 	if (strs)
 		free_av(strs);
 	return (head);
+}
+
+char	**parse_ops(char *s)
+{
+	char	**strs;
+	char	*ops;
+	// int		i;
+
+	if (!s)
+		return (NULL);
+	ops = "sa ra rra pa sb rb rrb pb rrr ss rr";
+	strs = ft_split(s, '\n');
+	free(s);
+	if (!strs)
+		return (NULL);
+	// i = 0;
+	// while (strs[i])
+	// {
+	// 	if (ft_strnstr(ops, strs[i], ft_strlen(strs[i])) == NULL)
+	// 		return (free_av(strs), NULL);
+	// 	i++;
+	// }
+	return (strs);
 }
