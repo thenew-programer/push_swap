@@ -32,26 +32,16 @@ t_stack	*stacknew(int data)
 void	stackadd_front(t_stack **head, t_stack *new_node)
 {
 	t_stack	*tmp;
-	int		pos;
 
-	pos = 0;
 	if (*head == NULL)
 	{
-		new_node->pos = pos;
 		*head = new_node;
 		return ;
 	}
 	tmp = *head;
-	new_node->next = tmp;
+	new_node->next = (*head);
 	(*head)->prev = new_node;
 	*head = new_node;
-	tmp = new_node;
-	while (tmp)
-	{
-		tmp->pos = pos;
-		tmp = tmp->next;
-		pos++;
-	}
 }
 
 int	stacksize(t_stack *s)

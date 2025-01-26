@@ -17,6 +17,8 @@ void	free_av(char **av)
 {
 	int	i;
 
+	if (!av)
+		return ;
 	i = 0;
 	while (av[i])
 	{

@@ -46,23 +46,15 @@ void	stackpos(t_stack *s)
 {
 	int		i;
 	int		median;
-	t_stack	*tmp;
 
 	if (s == NULL)
 		return ;
-	tmp = s;
-	while (tmp)
-	{
-		tmp->below_avg = FALSE;
-		tmp = tmp->next;
-	}
 	median = stacksize(s) / 2;
 	i = 0;
 	while (s)
 	{
 		s->pos = i;
-		if (i <= median)
-			s->below_avg = TRUE;
+		s->below_avg = (i <= median);
 		s = s->next;
 		i++;
 	}

@@ -80,8 +80,6 @@ void	heavy_sort(t_stack **a, t_stack **b)
 	t_stack	*min;
 	t_stack	*cheapest;
 
-	if (is_sorted(*a))
-		return ;
 	while (stacksize(*a) > 3)
 		pp(a, b, STACK_B);
 	light_sort(a, b);
@@ -92,9 +90,10 @@ void	heavy_sort(t_stack **a, t_stack **b)
 		cheapest = set_cheapest(*b);
 		move_cheapest_to_a(a, b, cheapest);
 	}
-	stackpos(*a);
+	if (is_sorted(*a))
+		return ;
 	min = min_node(*a);
-	while (min->pos != 0)
+	while (min != *a)
 	{
 		if (min->below_avg)
 			rr(a, b, STACK_A);
@@ -109,6 +108,7 @@ void	push_swap(t_stack **a, t_stack **b)
 
 	if (is_sorted(*a))
 		return ;
+	stackpos(*a);
 	size = stacksize(*a);
 	if (size == 2)
 		ss(a, b, STACK_A);

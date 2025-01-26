@@ -35,7 +35,7 @@ int	exec_op(char *op, t_stack **a, t_stack **b, t_ops *sort_ops)
 	j = 0;
 	while (sort_ops[j].op)
 	{
-		if (ft_strncmp(op, sort_ops[j].op, ft_strlen(op)) == 0)
+		if (ft_strncmp(op, sort_ops[j].op, ft_strlen(op) - 1) == 0)
 		{
 			if (ft_strrchr(sort_ops[j].op, 'a'))
 				sort_ops[j].f(a, b, STACK_A);

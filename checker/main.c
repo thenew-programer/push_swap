@@ -51,11 +51,6 @@ int	main(int ac, char **av)
 	if (a == NULL)
 		return (1);
 	strs = parse_ops(read_ops());
-	// if (strs)
-	// {
-	// 	for (int i = 0; strs[i]; i++)
-	// 		printf("%s", strs[i]);
-	// }
 	sort(strs, &a, &b);
 	stackfree(&b);
 	stackfree(&a);
