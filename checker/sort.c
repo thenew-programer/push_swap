@@ -6,7 +6,7 @@
 /*   By: ybouryal <ybouryal@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/21 21:45:49 by ybouryal          #+#    #+#             */
-/*   Updated: 2025/01/21 22:17:29 by ybouryal         ###   ########.fr       */
+/*   Updated: 2025/01/28 11:51:27 by ybouryal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,39 +38,50 @@ int	exec_op(char *op, t_stack **a, t_stack **b, t_ops *sort_ops)
 		if (ft_strncmp(op, sort_ops[j].op, ft_strlen(op) - 1) == 0)
 		{
 			if (ft_strrchr(sort_ops[j].op, 'a'))
-				sort_ops[j].f(a, b, STACK_A);
+				return (sort_ops[j].f(a, b, STACK_A), TRUE);
 			else if (ft_strrchr(sort_ops[j].op, 'b'))
-				sort_ops[j].f(a, b, STACK_B);
+				return (sort_ops[j].f(a, b, STACK_B), TRUE);
 			else
-				sort_ops[j].f(a, b, STACK_AB);
+				return (sort_ops[j].f(a, b, STACK_AB), TRUE);
 		}
-		else
-			return (input_error(NULL, TRUE), FALSE);
-
 		j++;
 	}
-	return (TRUE);
+	return (FALSE);
 }
 
-t_const	sort(char **ops, t_stack **a, t_stack **b)
+char	*read_op(void)
 {
+	char	*op;
+
+	op = get_next_line(STDIN_FILENO);
+	if (!op)
+		return (NULL);
+	return (op);
+}
+
+int	sort(t_stack **a, t_stack **b, int a_size)
+{
+	t_const	ret;
 	t_ops	sort_ops[12];
-	int		i;
+	char	*op;
+	int		size;
 
 	init_ops(sort_ops);
-	if (!ops && is_sorted(*a))
-		return (ft_putendl_fd("OK", 1), TRUE);
-	if (!ops)
-		return (ft_putendl_fd("KO", 1), FALSE);
-	i = 0;
-	while (ops[i])
+	op = read_op();
+	while (op)
 	{
-		if (exec_op(ops[i], a, b, sort_ops) == FALSE)
-			return (FALSE);
-		i++;
+		if (exec_op(op, a, b, sort_ops) == FALSE)
+			return (free(op), input_error(a, TRUE), stackfree(b), FALSE);
+		free(op);
+		op = read_op();
 	}
-	if (!is_sorted(*a))
+	ret = is_sorted(*a);
+	size = stacksize(*a);
+	stackfree(a);
+	stackfree(b);
+	if (!ret || size != a_size)
 		return (ft_putendl_fd("KO", 1), FALSE);
 	else
-		return (ft_putendl_fd("OK", 1), TRUE);
+		return (ft_putendl_fd("OK", 1), FALSE);
+	return (TRUE);
 }

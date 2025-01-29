@@ -37,11 +37,10 @@ t_const	is_nbr_valid(char *str)
 	while (is_space(*str))
 		str++;
 	if (*str == '-' || *str == '+')
-	{
-		if (*str == '-')
+		if (*str++ == '-')
 			sign = -1;
-		str++;
-	}
+	if (!*str)
+		return (FALSE);
 	while (*str)
 	{
 		if (!ft_isdigit(*str))
@@ -62,6 +61,12 @@ char	**parse_av(int *ac, char *str)
 	int		count;
 
 	strs = ft_split(str, ' ');
+	if (!strs[0])
+	{
+		free_av(strs);
+		input_error(NULL, TRUE);
+		exit(1);
+	}
 	count = 0;
 	while (strs[count])
 		count++;

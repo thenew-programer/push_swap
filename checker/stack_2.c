@@ -5,90 +5,62 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: ybouryal <ybouryal@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/01/02 14:53:33 by ybouryal          #+#    #+#             */
-/*   Updated: 2025/01/02 14:53:35 by ybouryal         ###   ########.fr       */
+/*   Created: 2025/01/01 23:05:38 by ybouryal          #+#    #+#             */
+/*   Updated: 2025/01/01 23:06:19 by ybouryal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "checker.h"
 
-t_stack	*stackfind(t_stack *head, int data)
+t_stack	*stackfind(t_stack *s, int data)
 {
-	if (head == NULL)
+	if (s == NULL)
 		return (NULL);
-	while (head)
+	while (s)
 	{
-		if (head->data == data)
-			return (head);
-		head = head->next;
+		if (s->data == data)
+			return (s);
+		s = s->next;
 	}
 	return (NULL);
 }
 
-t_stack	*stackget(t_stack *head, int idx)
+t_stack	*stackget(t_stack *s, int idx)
 {
 	int	count;
 
-	if (head == NULL)
+	if (s == NULL)
 		return (NULL);
 	count = 0;
-	while (head)
+	while (s)
 	{
 		if (count == idx)
-			return (head);
+			return (s);
 		count++;
-		head = head->next;
+		s = s->next;
 	}
 	return (NULL);
 }
 
-void	stackpos(t_stack *s)
-{
-	int		i;
-	int		median;
-	t_stack	*tmp;
-
-	if (s == NULL)
-		return ;
-	tmp = s;
-	while (tmp)
-	{
-		tmp->below_avg = FALSE;
-		tmp = tmp->next;
-	}
-	median = stacksize(s) / 2;
-	i = 0;
-	while (s)
-	{
-		s->pos = i;
-		if (i <= median)
-			s->below_avg = TRUE;
-		s = s->next;
-		i++;
-	}
-}
-
-int	pop(t_stack **head)
+int	pop(t_stack **s)
 {
 	int		data;
 	t_stack	*del;
 
-	data = (*head)->data;
-	del = *head;
-	(*head) = (*head)->next;
-	if (*head)
-		(*head)->prev = NULL;
+	data = (*s)->data;
+	del = *s;
+	(*s) = (*s)->next;
 	free(del);
 	return (data);
 }
 
-int	push(t_stack **head, int data)
+int	push(t_stack **s, int data)
 {
 	t_stack	*new;
 
 	new = stacknew(data);
 	if (!new)
 		return (0);
-	stackadd_front(head, new);
+	stackadd_front(s, new);
 	return (1);
 }

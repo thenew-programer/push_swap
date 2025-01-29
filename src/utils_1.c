@@ -17,9 +17,7 @@ void	swap_node(t_stack **s)
 	t_stack	*second;
 
 	second = (*s)->next;
-	second->prev = NULL;
 	(*s)->next = second->next;
-	(*s)->prev = second;
 	second->next = *s;
 	*s = second;
 }
@@ -34,23 +32,21 @@ void	rotate(t_stack **s)
 	if (last == NULL)
 		return ;
 	*s = top->next;
-	(*s)->prev = NULL;
 	last->next = top;
-	top->prev = last;
 	top->next = NULL;
 }
 
 void	rrotate(t_stack **s)
 {
 	t_stack	*last;
+	t_stack	*before_last;
 
 	last = stacklast(*s);
 	if (last == NULL)
 		return ;
-	last->prev->next = NULL;
+	before_last = stackget(*s, stacksize(*s) - 2);
+	before_last->next = NULL;
 	last->next = *s;
-	last->prev = NULL;
-	(*s)->prev = last;
 	*s = last;
 }
 

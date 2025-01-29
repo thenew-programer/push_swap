@@ -17,11 +17,10 @@ t_stack	*min_node(t_stack *s)
 	int		min;
 	t_stack	*min_node;
 
-	min_node = NULL;
 	if (s == NULL)
-		return (min_node);
-	min = s->data;
-	min_node = s;
+		return (NULL);
+	min = INT_MAX;
+	min_node = NULL;
 	while (s)
 	{
 		if (s->data < min)

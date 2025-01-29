@@ -6,12 +6,12 @@
 /*   By: ybouryal <ybouryal@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/02 00:09:28 by ybouryal          #+#    #+#             */
-/*   Updated: 2025/01/21 22:17:06 by ybouryal         ###   ########.fr       */
+/*   Updated: 2025/01/28 11:47:26 by ybouryal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef PUSH_SWAP_H
-# define PUSH_SWAP_H
+#ifndef CHECKER_H
+# define CHECKER_H
 
 # include "libft.h"
 
@@ -49,15 +49,15 @@ typedef enum e_const
 typedef struct s_stack
 {
 	int				data;
-	int				price;
-	int				pos;
-	t_const			below_avg;
-	t_const			cheapest;
 	struct s_stack	*next;
-	struct s_stack	*prev;
-	struct s_stack	*target;
 }	t_stack;
 
+/*
+ * t_ops:		struct to encapsulate the function and there operations.
+ *
+ * @op:			Operation name.
+ * @f			Operation handler function.
+ * */
 typedef struct s_ops
 {
 	char	*op;
@@ -81,14 +81,10 @@ void	swap_node(t_stack **s);
 void	rotate(t_stack **s);
 void	rrotate(t_stack **s);
 t_const	is_sorted(t_stack *s);
-t_stack	*min_node(t_stack *s);
-void	set_target(t_stack *a, t_stack *b);
-void	set_price(t_stack *a, t_stack *b);
-t_stack	*set_cheapest(t_stack *b);
 t_const	is_space(char c);
 
 /* Parser functions */
-t_stack	*parser(int ac, char **av, char **strs);
+t_stack	*parser(int ac, char **av);
 char	**parse_av(int *ac, char *str);
 void	free_av(char **av);
 char	**parse_ops(char *s);
@@ -99,17 +95,10 @@ void	rr(t_stack **a, t_stack **b, t_const flag);
 void	rrr(t_stack **a, t_stack **b, t_const flag);
 void	pp(t_stack **a, t_stack **b, t_const flag);
 
-/* Push Swap algorithm */
-void	light_sort(t_stack **a, t_stack **b);
-void	mid_sort(t_stack **a, t_stack **b);
-void	move_cheapest_to_a(t_stack **a, t_stack **b, t_stack *cheapest);
-void	heavy_sort(t_stack **a, t_stack **b);
-void	push_swap(t_stack **a, t_stack **b);
-
 /* Error handling function */
 void	input_error(t_stack **s, t_const msg);
 
-char	*get_next_line(int fd);
-t_const	sort(char **ops, t_stack **a, t_stack **b);
+/* Sorting functions */
+int		sort(t_stack **a, t_stack **b, int a_size);
 
 #endif /* PUSH_SWAP_H */

@@ -68,8 +68,6 @@ int	pop(t_stack **s)
 	data = (*s)->data;
 	del = *s;
 	(*s) = (*s)->next;
-	if (*s)
-		(*s)->prev = NULL;
 	free(del);
 	return (data);
 }

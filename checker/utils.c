@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   utils.c                                            :+:      :+:    :+:   */
+/*   utils_1.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ybouryal <ybouryal@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/01/02 14:57:16 by ybouryal          #+#    #+#             */
-/*   Updated: 2025/01/02 14:57:29 by ybouryal         ###   ########.fr       */
+/*   Created: 2024/12/31 19:13:33 by ybouryal          #+#    #+#             */
+/*   Updated: 2025/01/01 23:07:33 by ybouryal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,9 +17,7 @@ void	swap_node(t_stack **s)
 	t_stack	*second;
 
 	second = (*s)->next;
-	second->prev = NULL;
 	(*s)->next = second->next;
-	(*s)->prev = second;
 	second->next = *s;
 	*s = second;
 }
@@ -34,23 +32,21 @@ void	rotate(t_stack **s)
 	if (last == NULL)
 		return ;
 	*s = top->next;
-	(*s)->prev = NULL;
 	last->next = top;
-	top->prev = last;
 	top->next = NULL;
 }
 
 void	rrotate(t_stack **s)
 {
 	t_stack	*last;
+	t_stack	*before_last;
 
 	last = stacklast(*s);
 	if (last == NULL)
 		return ;
-	last->prev->next = NULL;
+	before_last = stackget(*s, stacksize(*s) - 2);
+	before_last->next = NULL;
 	last->next = *s;
-	last->prev = NULL;
-	(*s)->prev = last;
 	*s = last;
 }
 

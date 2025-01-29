@@ -11,7 +11,6 @@
 /* ************************************************************************** */
 
 #include "push_swap.h"
-#include <stdio.h>
 
 t_stack	*stacknew(int data)
 {
@@ -24,23 +23,13 @@ t_stack	*stacknew(int data)
 	s->below_avg = FALSE;
 	s->cheapest = FALSE;
 	s->next = NULL;
-	s->prev = NULL;
 	s->target = NULL;
 	return (s);
 }
 
 void	stackadd_front(t_stack **head, t_stack *new_node)
 {
-	t_stack	*tmp;
-
-	if (*head == NULL)
-	{
-		*head = new_node;
-		return ;
-	}
-	tmp = *head;
 	new_node->next = (*head);
-	(*head)->prev = new_node;
 	*head = new_node;
 }
 

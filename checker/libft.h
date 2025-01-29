@@ -6,7 +6,7 @@
 /*   By: ybouryal <ybouryal@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/22 18:38:35 by ybouryal          #+#    #+#             */
-/*   Updated: 2024/12/31 18:36:25 by ybouryal         ###   ########.fr       */
+/*   Updated: 2025/01/28 11:47:58 by ybouryal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -356,5 +356,5 @@ void	ft_lstclear(t_list **lst, void (*del)(void *));
  * return:	line from file, Or null if
  * 			an error occur.
 */
-// char	*get_next_line(int fd);
+char	*get_next_line(int fd);
 #endif /* LIBFT_H */

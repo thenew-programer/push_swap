@@ -72,7 +72,6 @@ void	move_cheapest_to_a(t_stack **a, t_stack **b, t_stack *cheapest)
 		else
 			rrr(a, b, STACK_A);
 	}
-	pp(a, b, STACK_A);
 }
 
 void	heavy_sort(t_stack **a, t_stack **b)
@@ -89,9 +88,8 @@ void	heavy_sort(t_stack **a, t_stack **b)
 		set_price(*a, *b);
 		cheapest = set_cheapest(*b);
 		move_cheapest_to_a(a, b, cheapest);
+		pp(a, b, STACK_A);
 	}
-	if (is_sorted(*a))
-		return ;
 	min = min_node(*a);
 	while (min != *a)
 	{

@@ -1,5 +1,5 @@
 CC			= cc
-CFLAGS		= -Wall -Werror -Wextra -I $(HEAD)
+CFLAGS		= -Wall -Werror -Wextra -I $(HEAD) -g
 LDFLAGS		= -L$(LIBFT_DIR) -lft
 RM			= rm -rf
 
@@ -35,7 +35,8 @@ $(BNAME):	$(BOBJS) $(LIBFT)
 
 $(BOBJS_DIR)/%.o:	$(BSRCS_DIR)/%.c
 			@mkdir -p $(BOBJS_DIR)
-			$(CC) $(CFLAGS) -c $< -o $@
+			@$(CC) $(CFLAGS) -c $< -o $@
+			@echo "Compiling Objs..."
 
 $(LIBFT):
 			@echo "Building libft"
@@ -56,3 +57,4 @@ fclean:		clean
 re:			fclean all
 
 .PHONY: all clean fclean re bonus
+.SECONDARY: $(SRCS) $(OBJS)

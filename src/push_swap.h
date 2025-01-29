@@ -53,7 +53,6 @@ typedef struct s_stack
 	t_const			below_avg;
 	t_const			cheapest;
 	struct s_stack	*next;
-	struct s_stack	*prev;
 	struct s_stack	*target;
 }	t_stack;
 
