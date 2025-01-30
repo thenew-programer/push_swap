@@ -282,7 +282,7 @@ t_list	*ft_lstnew(void *content);
  *
  * return:	None
 */
-void	ft_lstadd_front(t_list **lst, t_list *new);
+void	ft_lstadd_front(t_list **lst, t_list *new_node);
 
 /**
  * Desc:	Counts the number of nodes in a list.
@@ -311,7 +311,7 @@ t_list	*ft_lstlast(t_list *lst);
  *
  * return:	None
 */
-void	ft_lstadd_back(t_list **lst, t_list *new);
+void	ft_lstadd_back(t_list **lst, t_list *new_node);
 
 /**
  * Desc:	Takes as a parameter a node and frees the memory
