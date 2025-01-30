@@ -38,6 +38,5 @@ int	main(int ac, char **av)
 		return (1);
 	push_swap(&a, &b);
 	stackfree(&a);
-
 	return (0);
 }
