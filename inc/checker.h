@@ -101,4 +101,4 @@ void	input_error(t_stack **s, t_const msg);
 /* Sorting functions */
 int		sort(t_stack **a, t_stack **b, int a_size);
 
-#endif /* PUSH_SWAP_H */
+#endif /* CHECKER_H */
