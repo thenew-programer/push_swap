@@ -59,6 +59,7 @@ typedef struct s_stack
 /* Stack impl and utility functions */
 t_stack	*stacknew(int data);
 void	stackadd_front(t_stack **head, t_stack *new_node);
+void	stackadd_back(t_stack **head, t_stack *new_node);
 int		stacksize(t_stack *s);
 void	stackfree(t_stack **s);
 t_stack	*stacklast(t_stack *s);
@@ -81,7 +82,6 @@ t_const	is_space(char c);
 
 /* Parser functions */
 t_stack	*parser(int ac, char **av);
-char	**parse_av(int *ac, char *str);
 void	free_av(char **av);
 
 /* Commands */

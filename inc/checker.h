@@ -5,8 +5,8 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: ybouryal <ybouryal@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/01/02 00:09:28 by ybouryal          #+#    #+#             */
-/*   Updated: 2025/01/28 11:47:26 by ybouryal         ###   ########.fr       */
+/*   Created: 2025/02/02 10:54:28 by ybouryal          #+#    #+#             */
+/*   Updated: 2025/02/02 10:59:04 by ybouryal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,7 +61,7 @@ typedef struct s_stack
 typedef struct s_ops
 {
 	char	*op;
-	void	(*f)(t_stack **, t_stack **, t_const);
+	int		(*f)(t_stack **, t_stack **, t_const);
 }	t_ops;
 
 /* Stack impl and utility functions */
@@ -77,23 +77,21 @@ int		pop(t_stack **head);
 int		push(t_stack **head, int data);
 
 /* Command Utils */
-void	swap_node(t_stack **s);
-void	rotate(t_stack **s);
-void	rrotate(t_stack **s);
+int		swap_node(t_stack **s);
+int		rotate(t_stack **s);
+int		rrotate(t_stack **s);
 t_const	is_sorted(t_stack *s);
 t_const	is_space(char c);
 
 /* Parser functions */
-t_stack	*parser(int ac, char **av);
-char	**parse_av(int *ac, char *str);
+t_stack	*parser(int *ac, char **av);
 void	free_av(char **av);
-char	**parse_ops(char *s);
 
 /* Commands */
-void	ss(t_stack **a, t_stack **b, t_const flag);
-void	rr(t_stack **a, t_stack **b, t_const flag);
-void	rrr(t_stack **a, t_stack **b, t_const flag);
-void	pp(t_stack **a, t_stack **b, t_const flag);
+int		ss(t_stack **a, t_stack **b, t_const flag);
+int		rr(t_stack **a, t_stack **b, t_const flag);
+int		rrr(t_stack **a, t_stack **b, t_const flag);
+int		pp(t_stack **a, t_stack **b, t_const flag);
 
 /* Error handling function */
 void	input_error(t_stack **s, t_const msg);

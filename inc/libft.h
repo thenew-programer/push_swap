@@ -357,4 +357,4 @@ void	ft_lstclear(t_list **lst, void (*del)(void *));
  * 			an error occur.
 */
 char	*get_next_line(int fd);
-#endif /* LIBFT_H */
+#endif
