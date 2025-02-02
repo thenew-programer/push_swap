@@ -6,7 +6,7 @@
 /*   By: ybouryal <ybouryal@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/02 00:08:12 by ybouryal          #+#    #+#             */
-/*   Updated: 2025/01/28 11:51:38 by ybouryal         ###   ########.fr       */
+/*   Updated: 2025/02/02 11:03:50 by ybouryal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,26 +16,18 @@ int	main(int ac, char **av)
 {
 	t_stack	*a;
 	t_stack	*b;
-	char	**strs;
+	int		ret;
 
-	strs = NULL;
 	if (ac == 1)
-		return (1);
-	if (ac == 2)
-		strs = parse_av(&ac, av[ac - 1]);
-	else if (ac > 2)
-	{
-		av = &(av[1]);
-		ac--;
-	}
+		return (0);
 	b = NULL;
-	if (strs)
-		av = strs;
-	a = parser(ac, av);
-	if (strs)
-		free_av(strs);
+	a = parser(&ac, (av + 1));
 	if (!a)
 		return (1);
-	sort(&a, &b, ac);
+	ret = sort(&a, &b, ac);
+	stackfree(&b);
+	stackfree(&a);
+	if (ret == FALSE)
+		return (1);
 	return (0);
 }

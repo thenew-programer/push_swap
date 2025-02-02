@@ -12,49 +12,74 @@
 
 #include "checker.h"
 
-void	ss(t_stack **a, t_stack **b, t_const flag)
+int	ss(t_stack **a, t_stack **b, t_const flag)
 {
 	if (flag == STACK_A)
-		swap_node(a);
+		return (swap_node(a));
 	else if (flag == STACK_B)
-		swap_node(b);
+		return (swap_node(b));
 	else if (flag == STACK_AB)
 	{
-		swap_node(a);
-		swap_node(b);
+		if (swap_node(a) == FALSE)
+			return (FALSE);
+		if (swap_node(b) == FALSE)
+			return (FALSE);
+		return (TRUE);
 	}
+	return (FALSE);
 }
 
-void	rr(t_stack **a, t_stack **b, t_const flag)
+int	rr(t_stack **a, t_stack **b, t_const flag)
 {
 	if (flag == STACK_A)
-		rotate(a);
+		return (rotate(a));
 	else if (flag == STACK_B)
-		rotate(b);
+		return (rotate(b));
 	else if (flag == STACK_AB)
 	{
-		rotate(a);
-		rotate(b);
+		if (rotate(a) == FALSE)
+			return (FALSE);
+		if (rotate(b) == FALSE)
+			return (FALSE);
+		return (TRUE);
 	}
+	return (FALSE);
 }
 
-void	rrr(t_stack **a, t_stack **b, t_const flag)
+int	rrr(t_stack **a, t_stack **b, t_const flag)
 {
 	if (flag == STACK_A)
-		rrotate(a);
+		return (rrotate(a));
 	else if (flag == STACK_B)
-		rrotate(b);
+		return (rrotate(b));
 	else if (flag == STACK_AB)
 	{
-		rrotate(a);
-		rrotate(b);
+		if (rrotate(a) == FALSE)
+			return (FALSE);
+		if (rrotate(b) == FALSE)
+			return (FALSE);
+		return (TRUE);
 	}
+	return (FALSE);
 }
 
-void	pp(t_stack **a, t_stack **b, t_const flag)
+int	pp(t_stack **a, t_stack **b, t_const flag)
 {
+	int	nbr;
+
 	if (flag == STACK_A)
-		push(a, pop(b));
+	{
+		nbr = pop(b);
+		if (nbr == FALSE && !*b)
+			return (FALSE);
+		return (push(a, nbr));
+	}
 	else if (flag == STACK_B)
-		push(b, pop(a));
+	{
+		nbr = pop(a);
+		if (nbr == FALSE && !*a)
+			return (FALSE);
+		return (push(b, nbr));
+	}
+	return (FALSE);
 }

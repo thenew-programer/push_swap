@@ -47,6 +47,8 @@ int	pop(t_stack **s)
 	int		data;
 	t_stack	*del;
 
+	if (!s || !*s)
+		return (FALSE);
 	data = (*s)->data;
 	del = *s;
 	(*s) = (*s)->next;

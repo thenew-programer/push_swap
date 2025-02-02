@@ -6,7 +6,7 @@
 /*   By: ybouryal <ybouryal@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/21 21:45:49 by ybouryal          #+#    #+#             */
-/*   Updated: 2025/01/28 11:51:27 by ybouryal         ###   ########.fr       */
+/*   Updated: 2025/02/02 11:02:29 by ybouryal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@ int	exec_op(char *op, t_stack **a, t_stack **b, t_ops *sort_ops)
 	j = 0;
 	while (sort_ops[j].op)
 	{
-		if (ft_strncmp(op, sort_ops[j].op, ft_strlen(op) - 1) == 0)
+		if (ft_strncmp(op, sort_ops[j].op, ft_strlen(op)) == 0)
 		{
 			if (ft_strrchr(sort_ops[j].op, 'a'))
 				return (sort_ops[j].f(a, b, STACK_A), TRUE);
@@ -52,34 +52,36 @@ int	exec_op(char *op, t_stack **a, t_stack **b, t_ops *sort_ops)
 char	*read_op(void)
 {
 	char	*op;
+	int		i;
 
 	op = get_next_line(STDIN_FILENO);
 	if (!op)
 		return (NULL);
+	i = 0;
+	while (op[i])
+	{
+		if (op[i] == '\n')
+			op[i] = 0;
+		i++;
+	}
 	return (op);
 }
 
 int	sort(t_stack **a, t_stack **b, int a_size)
 {
-	t_const	ret;
 	t_ops	sort_ops[12];
 	char	*op;
-	int		size;
 
 	init_ops(sort_ops);
 	op = read_op();
 	while (op)
 	{
 		if (exec_op(op, a, b, sort_ops) == FALSE)
-			return (free(op), input_error(a, TRUE), stackfree(b), FALSE);
+			return (free(op), input_error(NULL, TRUE), FALSE);
 		free(op);
 		op = read_op();
 	}
-	ret = is_sorted(*a);
-	size = stacksize(*a);
-	stackfree(a);
-	stackfree(b);
-	if (!ret || size != a_size)
+	if (!is_sorted(*a) || stacksize(*a) != a_size)
 		return (ft_putendl_fd("KO", 1), FALSE);
 	else
 		return (ft_putendl_fd("OK", 1), FALSE);

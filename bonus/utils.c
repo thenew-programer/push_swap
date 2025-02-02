@@ -12,17 +12,20 @@
 
 #include "checker.h"
 
-void	swap_node(t_stack **s)
+int	swap_node(t_stack **s)
 {
 	t_stack	*second;
 
+	if (!s)
+		return (FALSE);
 	second = (*s)->next;
 	(*s)->next = second->next;
 	second->next = *s;
 	*s = second;
+	return (TRUE);
 }
 
-void	rotate(t_stack **s)
+int	rotate(t_stack **s)
 {
 	t_stack	*top;
 	t_stack	*last;
@@ -30,24 +33,26 @@ void	rotate(t_stack **s)
 	top = *s;
 	last = stacklast(*s);
 	if (last == NULL)
-		return ;
+		return (FALSE);
 	*s = top->next;
 	last->next = top;
 	top->next = NULL;
+	return (TRUE);
 }
 
-void	rrotate(t_stack **s)
+int	rrotate(t_stack **s)
 {
 	t_stack	*last;
 	t_stack	*before_last;
 
 	last = stacklast(*s);
 	if (last == NULL)
-		return ;
+		return (FALSE);
 	before_last = stackget(*s, stacksize(*s) - 2);
 	before_last->next = NULL;
 	last->next = *s;
 	*s = last;
+	return (TRUE);
 }
 
 t_const	is_sorted(t_stack *s)
