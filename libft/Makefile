@@ -1,3 +1,8 @@
+# Colors
+GREEN		:= $(shell tput -Txterm setaf 2)
+BOLD		:= $(shell tput bold);
+RESET		:= $(shell tput -Txterm sgr0)
+
 SRCS		= ft_memset.c ft_bzero.c ft_memcpy.c ft_memmove.c ft_memchr.c \
 			  ft_memcmp.c ft_strlen.c ft_isalpha.c ft_isdigit.c ft_isalnum.c \
 			  ft_isascii.c ft_isprint.c ft_toupper.c ft_tolower.c ft_strchr.c \
@@ -32,11 +37,11 @@ all:		$(NAME)
 
 $(NAME):	${OBJS}
 			@${AR} ${NAME} ${OBJS}
-			@echo "Libft Mandatory Compiled."
+			@echo "$(BOLD)$(GREEN)Libft Mandatory Compiled.$(RESET)"
 
 bonus:		${B_OBJS}
 			@${AR} ${NAME} ${B_OBJS}
-			@echo "Libft Bonus Compiled."
+			@echo "$(BOLD)$(GREEN)Libft Bonus Compiled.$(RESET)"
 
 clean:
 			@${RM} ${OBJS} ${B_OBJS}
