@@ -1,5 +1,22 @@
+# **************************************************************************** #
+#                                                                              #
+#                                                         :::      ::::::::    #
+#    Makefile                                           :+:      :+:    :+:    #
+#                                                     +:+ +:+         +:+      #
+#    By: ybouryal <ybouryal@student.1337.ma>        +#+  +:+       +#+         #
+#                                                 +#+#+#+#+#+   +#+            #
+#    Created: 2025/02/02 11:25:34 by ybouryal          #+#    #+#              #
+#    Updated: 2025/02/02 11:26:29 by ybouryal         ###   ########.fr        #
+#                                                                              #
+# **************************************************************************** #
+
+# Colors
+GREEN		:= $(shell tput -Txterm setaf 2)
+BOLD		:= $(shell tput bold);
+RESET		:= $(shell tput -Txterm sgr0)
+
 CC			= cc
-CFLAGS		= -Wall -Werror -Wextra -I $(HEAD) -g
+CFLAGS		= -Wall -Werror -Wextra -I $(HEAD)
 LDFLAGS		= -L$(LIBFT_DIR) -lft
 RM			= rm -rf
 
@@ -27,23 +44,23 @@ all:		$(NAME)
 
 $(NAME):	$(OBJS) $(LIBFT)
 			@$(CC) $(OBJS) -o $@ $(LDFLAGS)
-			@echo "$(NAME) compiled Successfully"
+			@echo "$(BOLD)$(GREEN)$(NAME)compiled Successfully$(RESET)"
 
 $(OBJS_DIR)/%.o:		$(SRCS_DIR)/%.c
 			@mkdir -p $(OBJS_DIR)
 			@$(CC) $(CFLAGS) -c $< -o $@
-			@echo "Compiling $(NAME)..."
+			@echo "Compiling $(NAME) ..."
 
 bonus:		$(BNAME)
 
 $(BNAME):	$(BOBJS) $(LIBFT)
 			@$(CC) $(BOBJS) -o $@ $(LDFLAGS)
-			@echo "(BNAME) compiled successfully"
+			@echo "$(BOLD)$(GREEN)$(BNAME) compiled successfully$(RESET)"
 
 $(BOBJS_DIR)/%.o:	$(BSRCS_DIR)/%.c
 			@mkdir -p $(BOBJS_DIR)
 			@$(CC) $(CFLAGS) -c $< -o $@
-			@echo "Compiling $(BNAME)..."
+			@echo "Compiling $(BNAME) ..."
 
 $(LIBFT):
 			@$(MAKE) all bonus -C $(LIBFT_DIR)
@@ -67,5 +84,4 @@ re:
 			@$(MAKE) all
 
 .PHONY: all clean fclean re bonus
-.INTERMEDIATE:	$(OBJS) $(BOBJS)
-# .SECONDARY: $(SRCS) $(OBJS)
+.SECONDARY:	$(OBJS) $(BOBJS) $(LIBFT)
