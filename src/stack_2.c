@@ -14,7 +14,7 @@
 
 t_stack	*stackfind(t_stack *s, int data)
 {
-	if (s == NULL)
+	if (!s)
 		return (NULL);
 	while (s)
 	{
@@ -29,8 +29,6 @@ t_stack	*stackget(t_stack *s, int idx)
 {
 	int	count;
 
-	if (s == NULL)
-		return (NULL);
 	count = 0;
 	while (s)
 	{
@@ -47,16 +45,13 @@ void	stackpos(t_stack *s)
 	int		i;
 	int		median;
 
-	if (s == NULL)
-		return ;
 	median = stacksize(s) / 2;
 	i = 0;
 	while (s)
 	{
-		s->pos = i;
 		s->below_avg = (i <= median);
+		s->pos = i++;
 		s = s->next;
-		i++;
 	}
 }
 
@@ -78,7 +73,7 @@ int	push(t_stack **s, int data)
 
 	new = stacknew(data);
 	if (!new)
-		return (0);
+		return (FALSE);
 	stackadd_front(s, new);
-	return (1);
+	return (TRUE);
 }

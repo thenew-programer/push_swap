@@ -41,10 +41,8 @@ void	rrotate(t_stack **s)
 	t_stack	*last;
 	t_stack	*before_last;
 
-	last = stacklast(*s);
-	if (last == NULL)
-		return ;
 	before_last = stackget(*s, stacksize(*s) - 2);
+	last = before_last->next;
 	before_last->next = NULL;
 	last->next = *s;
 	*s = last;

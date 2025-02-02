@@ -16,27 +16,15 @@ int	main(int ac, char **av)
 {
 	t_stack	*a;
 	t_stack	*b;
-	char	**strs;
 
-	strs = NULL;
 	if (ac == 1)
-		return (1);
-	if (ac == 2)
-		strs = parse_av(&ac, av[ac - 1]);
-	else if (ac > 2)
-	{
-		av = &(av[1]);
-		ac--;
-	}
-	b = NULL;
-	if (strs)
-		av = strs;
-	a = parser(ac, av);
-	if (strs)
-		free_av(strs);
+		return (0);
+	a = parser(ac - 1, (av + 1));
 	if (a == NULL)
 		return (1);
+	b = NULL;
 	push_swap(&a, &b);
 	stackfree(&a);
+	stackfree(&b);
 	return (0);
 }
