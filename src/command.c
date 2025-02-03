@@ -79,7 +79,6 @@ void	rrr(t_stack **a, t_stack **b, t_const flag)
 	stackpos(*b);
 }
 
-#define malloc(x) NULL
 void	pp(t_stack **a, t_stack **b, t_const flag)
 {
 	if (flag == STACK_A)

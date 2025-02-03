@@ -69,7 +69,6 @@ t_const	is_nbr_valid(char *str)
 
 t_const	parse_nbrs(t_stack **head, char *s)
 {
-
 	char	**strs;
 	int		i;
 	int		nbr;
